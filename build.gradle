@@ -28,5 +28,6 @@ dependencies {
 	compile('org.springframework.integration:spring-integration-mail:4.3.10.RELEASE')
 	compile('javax.activation:activation:1.1.1')
 	compile('javax.mail:mail:1.4.7')
+	compile('org.apache.opennlp:opennlp-tools:1.8.4')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

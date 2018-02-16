@@ -13,12 +13,17 @@ import org.springframework.integration.dsl.mail.Mail;
 public class LocateReceiverApplication {
 	
 	@Bean
+	public LocateProcessor locateProcessor() {
+		return new LocateProcessor();
+	}
+	
+	@Bean
 	public Properties javaMailProperties() {
 		Properties props = new Properties();
 		props.put("mail.imap.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 		props.put("mail.imap.socketFactory.fallback", "false");
 		props.put("mail.store.protocol", "imaps");
-		props.put("mail.debug", "true");
+		props.put("mail.debug", "false");
 		return props;
 	}
 	
@@ -29,9 +34,7 @@ public class LocateReceiverApplication {
 					.shouldDeleteMessages(true)
 					.shouldMarkMessagesAsRead(true)
 					.shouldReconnectAutomatically(true)
-				).handle(message -> {
-					System.out.println(message.getPayload());
-				})
+				).handle(locateProcessor(), "process")
 				.get();
 	}
 
